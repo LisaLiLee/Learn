@@ -1,0 +1,40 @@
+import re
+from playwright.sync_api import Page, expect
+
+
+def test_has_title_noPlaywright(page: Page):
+    print("hello word")
+
+def test_has_title(page: Page):
+    page.goto("https://www.baidu.com/")
+
+    # Expect a title "to contain" a substring.
+    expect(page).to_have_title(re.compile("百度"))
+
+def test_get_started_link(page: Page):
+    page.goto("https://playwright.dev/")
+
+    # Click the get started link.
+    page.get_by_role("link", name="Get started").click()
+
+    # Expects page to have a heading with the name of Installation.
+    expect(page.get_by_role("heading", name="Installation")).to_be_visible()
+
+def test_jinJin(page: Page):
+    page.goto("*")
+
+    # Click the login with short message
+
+    page.get_by_alt_text(text="短信登录").click()
+
+    page.get_by_placeholder("请输入您的**").fill("456464432")
+    page.get_by_placeholder("请输入你的**").fill("13465463564")
+    page.get_by_text("获取验证码")
+
+    page.get_by_role("button", name=" 登录").click()
+
+    # page.get_by_text("常用菜单").check()
+
+    # Expect a title "to contain" a substring.
+    expect(page).to_have_title(re.compile("期望字样"))
+
